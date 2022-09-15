@@ -4,27 +4,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 
 @RestController
 public class CatController {
     @Autowired
     CatService catService;
 
+    @RequestMapping("/cataas")
+    public String getBasePage() {
+        return "this is an API made for getting cat photos! ようこそ！";
+    }
+
     @GetMapping(
-            value = "/cats",
+            value = "/cataas/dogwater",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
-    public @ResponseBody byte[] getPhoto() throws IOException {
-        File fi = new File("./images/dogbowl.jpg");
-        byte[] fileContent = Files.readAllBytes(fi.toPath());
-        return fileContent;
+    public @ResponseBody byte[] getDogPhoto() throws IOException {
+        return catService.getDogPhoto();
     }
+
+    @GetMapping(
+            value = "/cataas/cats",
+            produces = MediaType.IMAGE_JPEG_VALUE
+    )
+    public @ResponseBody byte[] getRandomCat(@RequestParam(value="text", required = false) String text) throws IOException, BadStringException {
+        try {
+            if (text == null) {
+                return catService.getRandomCat();
+            }
+            return catService.getRandomCatWithText(text);
+
+        } catch (BadStringException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }
