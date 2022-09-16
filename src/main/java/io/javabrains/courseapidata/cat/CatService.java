@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,8 +39,14 @@ public class CatService {
     }
 
     private boolean passesWordCheck(String text) {
-        Pattern pattern = Pattern.compile("\+\(a very bad word\)", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(text);
-        return matcher.matches();
+        HashSet<String> regexBlackList = new HashSet<>();
+        regexBlackList.add(".*(a\s*very\s*bad\s*word)+.*");
+
+        for (String blackListedWord: regexBlackList) {
+            Pattern pattern = Pattern.compile(blackListedWord, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(text);
+            if (matcher.matches()) return false;
+        }
+        return true;
     }
 }
