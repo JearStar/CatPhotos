@@ -31,17 +31,13 @@ public class CatController {
             value = "/cataas/cats",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
-    public @ResponseBody byte[] getRandomCat(@RequestParam(value="text", required = false) String text) throws IOException, BadStringException {
-        try {
-            if (text == null) {
-                return catService.getRandomCat();
-            }
-            return catService.getRandomCatWithText(text);
 
-        } catch (BadStringException e) {
-            throw new RuntimeException(e);
+    @ResponseBody
+    public byte[] getRandomCat(@RequestParam(value = "text", required = false) String text) throws IOException, BadStringException {
+        if (text == null) {
+            return catService.getRandomCat();
         }
-
+        return catService.getRandomCatWithText(text);
     }
 
 }

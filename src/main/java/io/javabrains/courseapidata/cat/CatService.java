@@ -26,7 +26,7 @@ public class CatService {
     }
 
     public byte[] getRandomCatWithText(String text) throws IOException, BadStringException {
-        if (!passesWordCheck(text)) throw new BadStringException();
+        if (!passesWordCheck(text)) throw new BadStringException("One or more of the provided words was not allowed");
         return getImageBytes("https://cataas.com/cat/says/" + text);
     }
 
