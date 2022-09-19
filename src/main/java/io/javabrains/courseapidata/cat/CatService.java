@@ -41,7 +41,7 @@ public class CatService {
     private boolean passesWordCheck(String text) {
         HashSet<String> regexBlackList = new HashSet<>();
         regexBlackList.add(".*(a\s*very\s*bad\s*word)+.*");
-
+        regexBlackList.add(".*(pee\s*pee\s*poo\s*poo)+.*");
         for (String blackListedWord: regexBlackList) {
             Pattern pattern = Pattern.compile(blackListedWord, Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(text);
