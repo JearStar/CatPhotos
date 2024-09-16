@@ -16,19 +16,47 @@ server.port=8080
 ## How to Use
 The part of the application concerned with cats and cat photos has the following endpoints
 ```
-/cataas
+GET /cataas
 ```
 This endpoint is the base endpoint.
 
 ```
-/cataas/dogwater
+GET /cataas/dogwater
 ```
 This endpoint returns a picture of a dog drinking water.
 
 ```
-/cataas/cats
+GET /cataas/cats
 ```
 This endpoint returns a random cat photo from CATAAS. You may choose to add a `text` param to your request to overlay your desired text onto the photo. For example
 ```
-/cataas/cats?text=example
+GET /cataas/cats?text=example
 ```
+
+### Topics and Course
+The other part of this microservice is concerned with courses and topics. This part of the project demonstrates how to use JPA to support CRUD functionalities with the `Course` and `Topic` objects. You may try the following endpoints to interact with these objects
+```
+GET /topics
+```
+Retrives all topics.
+```
+GET /topics/{id}
+```
+Gets a topic with the given ID.
+
+```
+POST /topics
+```
+Adds a topic with given body.
+
+```
+PUT /topics/{id}
+```
+Updates a topic with the given ID.
+
+```
+DELETE /topics/{id}
+```
+Deletes a topic with the given ID.
+
+Courses also supports a similar list of APIs.
