@@ -17,7 +17,7 @@ public class CourseController {
         return courseService.getAllCourses(topicId);
     }
 
-    @RequestMapping("/topics/{topicId}/courses/{courseId}")
+    @RequestMapping("/courses/{courseId}")
     public Course getCourse(@PathVariable String courseId) {
         return courseService.getCourse(courseId.toLowerCase()).get();
     }
@@ -34,7 +34,7 @@ public class CourseController {
         courseService.updateCourse(course);
     }
 
-    @RequestMapping(method=RequestMethod.DELETE, value="/topics/{topicId}/courses/{courseId}")
+    @RequestMapping(method=RequestMethod.DELETE, value="/courses/{courseId}")
     public void deleteCourse(@PathVariable String courseId) {
         courseService.deleteCourse(courseId.toLowerCase());
     }
